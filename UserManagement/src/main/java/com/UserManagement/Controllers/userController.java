@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.UserManagement.Model.users;
@@ -18,6 +19,7 @@ import com.UserManagement.ResponceDTO.userResponse;
 import com.UserManagement.Service.userService;
 
 @RestController
+@RequestMapping("/users")
 public class userController {
 	
 	@Autowired
@@ -36,7 +38,7 @@ public class userController {
     	 return userService.updateUser(id, updateUserRequest);
      }
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public users getUser(@PathVariable("id") int id) {
 		return userService.getUser(id);
 	}
