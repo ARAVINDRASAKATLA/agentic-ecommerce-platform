@@ -6,7 +6,11 @@ import com.DeliveryManagement.dtoResponse.DeliveryResponse;
 
 public interface deliveryServiceImpl {
 	
-	public DeliveryResponse deliveries(DeliveryCreateRequest createRequest);
+	DeliveryResponse deliveries(DeliveryCreateRequest createRequest);
+	DeliveryResponse updateDelivery(updateDeliveryRequest deliveryRequest);
+	DeliveryResponse getDeliveryByOrderId(int orderId);
+	DeliveryResponse getDeliveryById(int deliveryId);
+	DeliveryResponse assignDriver(int deliveryId, int driverId);
+	DeliveryResponse updateStatus(int deliveryId, String status);
 
-	public DeliveryResponse updateDelivery(updateDeliveryRequest deliveryRequest);
 }

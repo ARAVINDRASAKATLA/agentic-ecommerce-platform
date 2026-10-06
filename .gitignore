@@ -2,3 +2,23 @@
 .classpath
 .project
 .settings/
+
+# Maven build artifacts
+**/target/
+*.jar
+*.war
+*.ear
+
+# IDE & Editor files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+

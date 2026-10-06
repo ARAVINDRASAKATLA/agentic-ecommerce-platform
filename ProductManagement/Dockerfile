@@ -1,0 +1,19 @@
+# Multi-stage Dockerfile for ProductManagement (Java 21)
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
+WORKDIR /build
+
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+COPY --from=builder /build/target/*.jar app.jar
+
+EXPOSE 8082
+
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]

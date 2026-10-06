@@ -3,7 +3,6 @@ package com.Products.dto.Response;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +20,8 @@ public class userOrderResponse {
 	private double totalprice;
 	private String status;
 	private LocalDateTime orderTime;
-	
+	private Integer deliveryId;
+	private String message;
 	private List<orderItemsResponse> orderItems;
 
-	
 }

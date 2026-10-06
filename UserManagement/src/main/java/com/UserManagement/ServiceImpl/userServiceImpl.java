@@ -6,17 +6,17 @@ import com.UserManagement.Model.users;
 import com.UserManagement.RequestDTO.UpdateUserRequest;
 import com.UserManagement.RequestDTO.newUserCreateRequest;
 import com.UserManagement.ResponceDTO.userResponse;
+import com.UserManagement.security.AuthRequest;
+import com.UserManagement.security.AuthResponse;
 
 public interface userServiceImpl {
 	
-	public userResponse createUser(newUserCreateRequest userCreateRequest);
-	
-	public users updateUser(int id, UpdateUserRequest updaterequest);
-	
-	public users getUser(int id);
-	
-	public List<userResponse> getAllUsers();
-	
-	public users deleteUser(int id);
+	userResponse createUser(newUserCreateRequest userCreateRequest);
+	users updateUser(int id, UpdateUserRequest updaterequest);
+	users getUser(int id);
+	List<userResponse> getAllUsers();
+	users deleteUser(int id);
+	AuthResponse login(AuthRequest authRequest);
+	AuthResponse validateToken(String token);
 
 }

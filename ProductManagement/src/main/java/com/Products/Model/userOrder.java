@@ -30,12 +30,9 @@ public class userOrder {
 	private double totalprice;
 	private String status;
 	private LocalDateTime orderTime;
+	private Integer deliveryId;
 	
-	@OneToMany(mappedBy ="order",  cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<orderItems> orderItems;
-
-	
-	
-	
 
 }

@@ -36,9 +36,12 @@ public class userBuilder {
 	public static userResponse buildUserResponceFromUser(users user) {
 		return userResponse.builder()
 				.userId(user.getUserId())
-				.userName(user.getUserName()).userEmail(user.getUserEmail())
-				.phnNumber(user.getPhnNumber()).address(buildAddressResponseFromAddress(user.getAddress())).build();
-
+				.userName(user.getUserName())
+				.userEmail(user.getUserEmail())
+				.phnNumber(user.getPhnNumber())
+				.role(user.getRole())
+				.address(buildAddressResponseFromAddress(user.getAddress()))
+				.build();
 	}
 
 	public static AddressResponse buildAddressResponseFromAddress(Address address) {

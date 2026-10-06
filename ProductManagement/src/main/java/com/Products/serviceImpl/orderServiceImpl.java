@@ -11,4 +11,6 @@ public interface orderServiceImpl {
 	
 	public userOrderResponse getUserOrders(int id);
 
+	public userOrderResponse cancelOrder(int id);
+
 }

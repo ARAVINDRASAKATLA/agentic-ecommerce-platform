@@ -1,6 +1,5 @@
 package com.Products.Model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +9,9 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -25,14 +26,12 @@ public class orderItems {
 	
 	@ManyToOne
 	@JoinColumn(name="order_id")
+	@ToString.Exclude
+	@EqualsAndHashCode.Exclude
 	private userOrder order;
 	
 	private int productId;
 	private int quantity;
 	private double price;
-	
-	
-	
-	
 
 }
