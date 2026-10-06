@@ -1,31 +1,6 @@
-version: '3.8'
-
 services:
   # -----------------------------------------------------------
-  # 1. Infrastructure Services: MySQL Database
-  # -----------------------------------------------------------
-  mysql-db:
-    image: mysql:8.0
-    container_name: mysql-db
-    restart: unless-stopped
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: microservises
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - ecommerce-network
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
-  # -----------------------------------------------------------
-  # 2. Infrastructure Services: Apache Kafka (KRaft Mode)
+  # 1. Infrastructure Services: Apache Kafka (KRaft Mode)
   # -----------------------------------------------------------
   kafka:
     image: apache/kafka:3.7.0
@@ -56,7 +31,7 @@ services:
       start_period: 20s
 
   # -----------------------------------------------------------
-  # 3. Discovery Service: Netflix Eureka Server (Port 8761)
+  # 2. Discovery Service: Netflix Eureka Server (Port 8761)
   # -----------------------------------------------------------
   eureka-service:
     build:
@@ -70,7 +45,7 @@ services:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 4. User Management & Auth Service (Port 9000)
+  # 3. User Management & Auth Service (Port 9000)
   # -----------------------------------------------------------
   user-management:
     build:
@@ -81,23 +56,19 @@ services:
     ports:
       - "9000:9000"
     depends_on:
-      mysql-db:
-        condition: service_healthy
       eureka-service:
         condition: service_started
     environment:
-      DB_HOST: mysql-db
-      DB_PORT: 3306
-      DB_NAME: microservises
-      DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_URL: ${DB_URL:-jdbc:mysql://mysql-23d061c1-aravindrasakatla7-b9ba.e.aivencloud.com:19407/defaultdb?sslMode=REQUIRED}
+      DB_USERNAME: ${DB_USERNAME:-avnadmin}
+      DB_PASSWORD: ${DB_PASSWORD}
       EUREKA_HOST: eureka-service
       JWT_SECRET: ${JWT_SECRET:-SuperSecretDefaultKeyForDevelopmentOnly1234567890}
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 5. Inventory Management Service (Port 8083)
+  # 4. Inventory Management Service (Port 8083)
   # -----------------------------------------------------------
   inventory-management:
     build:
@@ -108,22 +79,18 @@ services:
     ports:
       - "8083:8083"
     depends_on:
-      mysql-db:
-        condition: service_healthy
       eureka-service:
         condition: service_started
     environment:
-      DB_HOST: mysql-db
-      DB_PORT: 3306
-      DB_NAME: microservises
-      DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_URL: ${DB_URL:-jdbc:mysql://mysql-23d061c1-aravindrasakatla7-b9ba.e.aivencloud.com:19407/defaultdb?sslMode=REQUIRED}
+      DB_USERNAME: ${DB_USERNAME:-avnadmin}
+      DB_PASSWORD: ${DB_PASSWORD}
       EUREKA_HOST: eureka-service
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 6. Product & Order Management Service (Port 8082)
+  # 5. Product & Order Management Service (Port 8082)
   # -----------------------------------------------------------
   product-management:
     build:
@@ -134,18 +101,14 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      mysql-db:
-        condition: service_healthy
       eureka-service:
         condition: service_started
       kafka:
         condition: service_healthy
     environment:
-      DB_HOST: mysql-db
-      DB_PORT: 3306
-      DB_NAME: microservises
-      DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_URL: ${DB_URL:-jdbc:mysql://mysql-23d061c1-aravindrasakatla7-b9ba.e.aivencloud.com:19407/defaultdb?sslMode=REQUIRED}
+      DB_USERNAME: ${DB_USERNAME:-avnadmin}
+      DB_PASSWORD: ${DB_PASSWORD}
       EUREKA_HOST: eureka-service
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
@@ -153,7 +116,7 @@ services:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 7. Delivery & Driver Fleet Management Service (Port 8084)
+  # 6. Delivery & Driver Fleet Management Service (Port 8084)
   # -----------------------------------------------------------
   delivery-management:
     build:
@@ -164,18 +127,14 @@ services:
     ports:
       - "8084:8084"
     depends_on:
-      mysql-db:
-        condition: service_healthy
       eureka-service:
         condition: service_started
       kafka:
         condition: service_healthy
     environment:
-      DB_HOST: mysql-db
-      DB_PORT: 3306
-      DB_NAME: microservises
-      DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_URL: ${DB_URL:-jdbc:mysql://mysql-23d061c1-aravindrasakatla7-b9ba.e.aivencloud.com:19407/defaultdb?sslMode=REQUIRED}
+      DB_USERNAME: ${DB_USERNAME:-avnadmin}
+      DB_PASSWORD: ${DB_PASSWORD}
       EUREKA_HOST: eureka-service
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
@@ -183,7 +142,7 @@ services:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 8. Real-Time Tracking Microservice (Port 8085)
+  # 7. Real-Time Tracking Microservice (Port 8085)
   # -----------------------------------------------------------
   tracking-service:
     build:
@@ -194,18 +153,14 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      mysql-db:
-        condition: service_healthy
       eureka-service:
         condition: service_started
       kafka:
         condition: service_healthy
     environment:
-      DB_HOST: mysql-db
-      DB_PORT: 3306
-      DB_NAME: microservises
-      DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_URL: ${DB_URL:-jdbc:mysql://mysql-23d061c1-aravindrasakatla7-b9ba.e.aivencloud.com:19407/defaultdb?sslMode=REQUIRED}
+      DB_USERNAME: ${DB_USERNAME:-avnadmin}
+      DB_PASSWORD: ${DB_PASSWORD}
       EUREKA_HOST: eureka-service
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
@@ -213,7 +168,7 @@ services:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 9. Agentic AI Customer Care Service (Port 8086)
+  # 8. Agentic AI Customer Care Service (Port 8086)
   # -----------------------------------------------------------
   customer-care-service:
     build:
@@ -232,13 +187,13 @@ services:
       EUREKA_HOST: eureka-service
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
-      GEMINI_API_KEY: ${GEMINI_API_KEY:-AIzaSyAmwwNDmlDgB2yDvYu5s2_kAQ7fU4ulUss}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       GEMINI_MODEL: ${GEMINI_MODEL:-gemini-flash-latest}
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 10. Spring Cloud API Gateway (Port 9500)
+  # 9. Spring Cloud API Gateway (Port 9500)
   # -----------------------------------------------------------
   api-gateway:
     build:
@@ -257,12 +212,8 @@ services:
       - ecommerce-network
 
 # -----------------------------------------------------------
-# Networks & Persistent Volumes
+# Networks
 # -----------------------------------------------------------
 networks:
   ecommerce-network:
     driver: bridge
-
-volumes:
-  mysql-data:
-    driver: local
