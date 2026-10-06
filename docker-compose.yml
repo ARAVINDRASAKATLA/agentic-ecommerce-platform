@@ -70,25 +70,7 @@ services:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 4. Centralized Configuration: ConfigServer (Port 8888)
-  # -----------------------------------------------------------
-  config-server:
-    build:
-      context: ./ConfigServer
-      dockerfile: Dockerfile
-    container_name: config-server
-    restart: unless-stopped
-    ports:
-      - "8888:8888"
-    depends_on:
-      - eureka-service
-    environment:
-      EUREKA_HOST: eureka-service
-    networks:
-      - ecommerce-network
-
-  # -----------------------------------------------------------
-  # 5. User Management & Auth Service (Port 9000)
+  # 4. User Management & Auth Service (Port 9000)
   # -----------------------------------------------------------
   user-management:
     build:
@@ -110,13 +92,12 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       EUREKA_HOST: eureka-service
-      CONFIG_SERVER_HOST: config-server
       JWT_SECRET: ${JWT_SECRET:-SuperSecretDefaultKeyForDevelopmentOnly1234567890}
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 6. Inventory Management Service (Port 8083)
+  # 5. Inventory Management Service (Port 8083)
   # -----------------------------------------------------------
   inventory-management:
     build:
@@ -138,12 +119,11 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       EUREKA_HOST: eureka-service
-      CONFIG_SERVER_HOST: config-server
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 7. Product & Order Management Service (Port 8082)
+  # 6. Product & Order Management Service (Port 8082)
   # -----------------------------------------------------------
   product-management:
     build:
@@ -167,14 +147,13 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       EUREKA_HOST: eureka-service
-      CONFIG_SERVER_HOST: config-server
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 8. Delivery & Driver Fleet Management Service (Port 8084)
+  # 7. Delivery & Driver Fleet Management Service (Port 8084)
   # -----------------------------------------------------------
   delivery-management:
     build:
@@ -198,14 +177,13 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       EUREKA_HOST: eureka-service
-      CONFIG_SERVER_HOST: config-server
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 9. Real-Time Tracking Microservice (Port 8085)
+  # 8. Real-Time Tracking Microservice (Port 8085)
   # -----------------------------------------------------------
   tracking-service:
     build:
@@ -229,14 +207,13 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       EUREKA_HOST: eureka-service
-      CONFIG_SERVER_HOST: config-server
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
     networks:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 10. Agentic AI Customer Care Service (Port 8086)
+  # 9. Agentic AI Customer Care Service (Port 8086)
   # -----------------------------------------------------------
   customer-care-service:
     build:
@@ -253,7 +230,6 @@ services:
         condition: service_healthy
     environment:
       EUREKA_HOST: eureka-service
-      CONFIG_SERVER_HOST: config-server
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_AUTO_STARTUP: "true"
       GEMINI_API_KEY: ${GEMINI_API_KEY:-AIzaSyAmwwNDmlDgB2yDvYu5s2_kAQ7fU4ulUss}
@@ -262,7 +238,7 @@ services:
       - ecommerce-network
 
   # -----------------------------------------------------------
-  # 11. Spring Cloud API Gateway (Port 9500)
+  # 10. Spring Cloud API Gateway (Port 9500)
   # -----------------------------------------------------------
   api-gateway:
     build:

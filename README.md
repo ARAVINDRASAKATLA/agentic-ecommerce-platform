@@ -18,10 +18,7 @@ A production-grade, distributed microservices ecosystem designed to handle end-t
 graph TD
     Client["Client / Postman / Frontend"] -->|HTTP / REST| GW["Spring Cloud Gateway :9500"]
 
-    subgraph Service Discovery & Config
-        Eureka["Eureka Discovery :8761"]
-        Config["Config Server :8888"]
-    end
+    Eureka["Eureka Discovery :8761"]
 
     GW -->|Validate JWT & Route| Users["UserManagement :9000"]
     GW -->|Route| Products["ProductManagement :8082"]
@@ -67,7 +64,6 @@ graph TD
 | :--- | :---: | :---: | :--- |
 | **APIGateway** | `9500` | 17 | Edge routing, reactive rate limiting, and JWT authentication filter. |
 | **EurekaService** | `8761` | 17 | Centralized service registry with automatic heartbeats and health tracking. |
-| **ConfigServer** | `8888` | 17 | Central configuration repository with optional fallback. |
 | **UserManagement** | `9000` | 21 | User onboarding, BCrypt password hashing, and role-based JWT issuance. |
 | **ProductManagement** | `8082` | 21 | Product catalog, order processing, and transactional stock coordination. |
 | **InventoryManagement**| `8083` | 21 | Real-time inventory tracking, atomic stock reservation, and replenishment. |
@@ -128,7 +124,7 @@ Ensure Docker Desktop or Docker Engine is running:
 git clone https://github.com/ARAVINDRASAKATLA/agentic-ecommerce-platform.git
 cd agentic-ecommerce-platform
 
-# 2. Build and run all 11 containers in the background
+# 2. Build and run all 10 containers in the background
 docker compose up --build -d
 
 # 3. Verify container health
@@ -158,10 +154,7 @@ Run each service in a separate terminal:
 # 1. Service Discovery
 cd EurekaService && ./mvnw spring-boot:run
 
-# 2. Configuration Server (Optional)
-cd ConfigServer && ./mvnw spring-boot:run
-
-# 3. Domain Microservices
+# 2. Domain Microservices
 cd UserManagement && ./mvnw spring-boot:run
 cd InventoryManagement && ./mvnw spring-boot:run
 cd ProductManagement && ./mvnw spring-boot:run
@@ -169,7 +162,7 @@ cd DeliveryManagement && ./mvnw spring-boot:run
 cd TrackingService && ./mvnw spring-boot:run
 cd CustomerCareService && ./mvnw spring-boot:run
 
-# 4. Edge API Gateway
+# 3. Edge API Gateway
 cd APIGateway && ./mvnw spring-boot:run
 ```
 

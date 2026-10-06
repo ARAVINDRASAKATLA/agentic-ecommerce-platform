@@ -24,8 +24,6 @@ jobs:
         include:
           - service: EurekaService
             java-version: '17'
-          - service: ConfigServer
-            java-version: '17'
           - service: APIGateway
             java-version: '17'
           - service: UserManagement
