@@ -76,7 +76,7 @@ function Start-Microservice {
     $servicePath = Join-Path $PSScriptRoot $Folder
     $logFile = Join-Path $logDir "$Name.log"
 
-    $cmd = "cd /d `"$servicePath`" && set DB_URL=$($env:DB_URL) && set DB_USERNAME=$($env:DB_USERNAME) && set DB_PASSWORD=$($env:DB_PASSWORD) && set JWT_SECRET=$($env:JWT_SECRET) && set GEMINI_API_KEY=$($env:GEMINI_API_KEY) && set KAFKA_AUTO_STARTUP=$($env:KAFKA_AUTO_STARTUP) && .\mvnw.cmd spring-boot:run -Dspring-boot.run.jvmArguments=`"$jvmArgs`" > `"$logFile`" 2>&1"
+    $cmd = "cd /d `"$servicePath`" && set DB_URL=$($env:DB_URL) && set DB_USERNAME=$($env:DB_USERNAME) && set DB_PASSWORD=$($env:DB_PASSWORD) && set JWT_SECRET=$($env:JWT_SECRET) && set GEMINI_API_KEY=$($env:GEMINI_API_KEY) && set KAFKA_AUTO_STARTUP=$($env:KAFKA_AUTO_STARTUP) && set JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m && .\mvnw.cmd spring-boot:run > `"$logFile`" 2>&1"
 
     $process = Start-Process "cmd.exe" -ArgumentList "/c $cmd" -PassThru -WindowStyle Hidden
     Write-Host "[OK] $Name launched (PID: $($process.Id)). Log: logs/$Name.log" -ForegroundColor Green
