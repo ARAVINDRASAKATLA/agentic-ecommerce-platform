@@ -18,10 +18,12 @@ import com.DeliveryManagement.dtoResponse.DriverResponse;
 import com.DeliveryManagement.model.Vehicle;
 import com.DeliveryManagement.service.DriverService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/drivers")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class DriverController {
 

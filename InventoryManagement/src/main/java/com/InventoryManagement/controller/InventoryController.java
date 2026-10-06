@@ -15,10 +15,12 @@ import com.InventoryManagement.dto.InventoryReserveRequest;
 import com.InventoryManagement.dto.InventoryResponse;
 import com.InventoryManagement.service.InventoryService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/inventory")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class InventoryController {
 

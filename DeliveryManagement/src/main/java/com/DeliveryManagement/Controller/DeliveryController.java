@@ -16,8 +16,11 @@ import com.DeliveryManagement.dtoRequest.updateDeliveryRequest;
 import com.DeliveryManagement.dtoResponse.DeliveryResponse;
 import com.DeliveryManagement.serviceImpl.deliveryService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 @RequestMapping("/delivery")
+@CrossOrigin(origins = "*")
 public class DeliveryController {
 	
 	@Autowired

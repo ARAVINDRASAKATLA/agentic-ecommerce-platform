@@ -19,8 +19,11 @@ import com.Products.dto.Response.productResponse;
 import com.Products.dto.request.productCreateRequest;
 import com.Products.dto.request.productUpdateRequest;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins = "*")
 public class productController {
 	
 	@Autowired

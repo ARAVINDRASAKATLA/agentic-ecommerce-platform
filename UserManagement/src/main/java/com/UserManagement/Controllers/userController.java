@@ -23,8 +23,11 @@ import com.UserManagement.Service.userService;
 import com.UserManagement.security.AuthRequest;
 import com.UserManagement.security.AuthResponse;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "*")
 public class userController {
 	
 	@Autowired

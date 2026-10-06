@@ -15,8 +15,11 @@ import com.Products.Service.orderService;
 import com.Products.dto.Response.userOrderResponse;
 import com.Products.dto.request.orderCreateRequest;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin(origins = "*")
 public class orderController {
 	
 	@Autowired

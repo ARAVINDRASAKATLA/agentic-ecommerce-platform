@@ -13,10 +13,12 @@ import com.Tracking.dto.OrderTrackingResponse;
 import com.Tracking.model.TrackingLocation;
 import com.Tracking.service.TrackingService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/tracking")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TrackingController {
 
