@@ -11,9 +11,9 @@
 	</parent>
 
 	<groupId>com.flm</groupId>
-	<artifactId>SpringSecurityJWT</artifactId>
+	<artifactId>DeliveryManagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringSecurityJWT</name>
+	<name>DeliveryManagement</name>
 
 	<properties>
 		<java.version>21</java.version>
@@ -52,8 +52,13 @@
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>  <!-- ✅ replaces the
-			two non-existent test starters -->
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
 

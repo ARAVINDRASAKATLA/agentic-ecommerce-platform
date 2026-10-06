@@ -10,6 +10,9 @@ env:
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || 'AIzaSyAmwwNDmlDgB2yDvYu5s2_kAQ7fU4ulUss' }}
   JWT_SECRET: ${{ secrets.JWT_SECRET || 'SuperSecretDefaultKeyForDevelopmentOnly1234567890' }}
   KAFKA_AUTO_STARTUP: 'false'
+  DB_URL: ${{ secrets.DB_URL }}
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
 jobs:
   # -------------------------------------------------------------
